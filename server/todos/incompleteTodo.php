@@ -9,8 +9,8 @@ $userID=$_GET['userID'];
 
 
 
-$completeTodo=$mysqli->prepare('update todos set isFinished=1 where id=?');
-$updateScore=$mysqli->prepare('update users set score=score+1 where id=?');
+$completeTodo=$mysqli->prepare('update todos set isFinished=0 where id=?');
+$updateScore=$mysqli->prepare('update users set score=score-1 where id=?');
 
 
     
