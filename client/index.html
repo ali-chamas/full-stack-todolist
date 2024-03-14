@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <script src="https://kit.fontawesome.com/96cf59c222.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="./styles/colors.css">
+    <link rel="stylesheet" href="./styles/index.css">
+    <link rel="stylesheet" href="./styles/utilities.css">
+    <link rel="icon" type="image/x-icon" href="./assets/favicon.ico">
+</head>
+<body>
+    <header class="flex p w-full justify-between align-center">
+        <div class="flex gap p ">
+            <h1 class="">Todo <i class="fa-solid primary-color  fa-circle-check"></i></h1>
+        </div>
+        <button type="button" class="button-style">Contact</button>
+    </header>
+
+    <section class="flex center w-full">
+        <div class="primary-bg flex column  login_section align-center">
+            <h2 class="">Welcome, <span class="primary-color">Login</span></h2>
+            <input type="text" id="username-input"  placeholder="username">
+            <input type="password" id="password-input" placeholder="password">
+            <button type="button" id="login-button" class="button-style">Sign in</button>
+            <small class="error_msg danger-color" id="error-message">Wrong!, who are you!?</small>
+
+        </div>
+    </section>
+
+    <footer class="flex p w-full primary-bg align-center justify-evenly">
+        <div class="flex column gap p ">
+            <a href="/" class="">Contact</a>
+            <a href="/">About</a>
+            <a href="/">FAQs</a>
+        </div>
+        <div class="flex gap p ">
+            <h1 class="">Todo <i class="fa-solid primary-color  fa-circle-check"></i></h1>
+        </div>
+        <div class="flex column gap p ">
+            <a href="/">Instagram <i class="fa-brands fa-instagram"></i></a>
+            <a href="/">Facebook <i class="fa-brands fa-facebook"></i></a>  
+            <a href="/">Donate</a> 
+        </div>
+    </footer>
+
+    <script src="scripts/login.js"></script>
+    
+</body>
+</html>

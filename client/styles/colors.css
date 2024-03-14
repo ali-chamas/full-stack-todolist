@@ -1,0 +1,12 @@
+.primary-color{
+    color: rgb(255, 132, 0);
+}
+.danger-color{
+    color: rgb(255, 60, 60);
+}
+.green-color{
+    color: greenyellow;
+}
+.primary-bg{
+    background-color: rgb(27, 27, 64);
+}

@@ -1,0 +1,44 @@
+.flex{
+    display: flex;
+}
+.column{
+    flex-direction: column;
+}
+.column-reverse{
+    flex-direction: column-reverse;
+}
+.center{
+    align-items: center;
+    justify-content: center;
+}
+.justify-between{
+    justify-content: space-between;
+}
+.justify-evenly{
+    justify-content: space-evenly;
+}
+.justify-start{
+    justify-content: start;
+}
+.align-center{
+    align-items: center;
+}
+.gap{
+    gap: 10px;
+}
+.w-full{
+    width: 100%;
+}
+.p{
+    padding: 10px;
+}
+
+.button-style{
+    background-color: rgb(255, 132, 0);
+    cursor: pointer;
+    padding: 10px 20px;
+    border-radius: 25px;
+}
+.button-style:hover{
+    opacity: 0.9;
+}
