@@ -9,15 +9,26 @@ $getTodos->bind_param('i',$id);
 $getTodos->execute();
 $getTodos->store_result();
 $getTodos->bind_result($id, $title, $createdAt, $isFinished,$userID);
-$getTodos->fetch();
+
 
 
 $response['status']="success";
 $response["message"]= "todos fetched succesfully";
-$response["id"]=$userID;    
-$response["title"]=$title;
-$response["createdAt"]=$createdAt;
-$response["isFinished"]=$isFinished;
-$response["userID"]=$userID;
+
+$todos = [];
+   
+    while ($getTodos->fetch()) {
+        $todo = [
+            'id' => $id,
+            'user_id' => $userID,
+            'title' => $title,
+            'createdAt' => $createdAt,
+            'isFinished' => $isFinished,
+            
+        ];
+    $todos[] = $todo;
+    }
+
+    $response['todos']=$todos;
 
 echo json_encode($response);

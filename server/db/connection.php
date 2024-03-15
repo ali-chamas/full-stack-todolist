@@ -2,7 +2,7 @@
 
 
 header("Access-Control-Allow-Origin: *");
-
+header("Access-Control-Allow-Methods: POST, PUT, GET, OPTIONS,DELETE");
 $host = "localhost";
 $db_user = "root";
 $db_pass = null;
