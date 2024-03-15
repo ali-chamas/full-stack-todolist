@@ -1,5 +1,13 @@
 const logoutButton = document.getElementById("logout-btn");
 const session = window.localStorage.getItem("session") ?? null;
+const todosContainer = document.getElementById("todos-container");
+const editPopup = document.getElementById("edit-popup");
+const editInput = document.getElementById("edit-input");
+const editBtn = document.getElementById("edit-submit");
+const exitBtn = document.getElementById("exit-btn");
+const todoInput = document.getElementById("todo-input");
+const addButton = document.getElementById("add-button");
+const scoreSpan = document.getElementById("user-score");
 
 if (!session || session == "null") {
   window.location.assign("../index.html");
@@ -15,6 +23,9 @@ let todoList = [];
 let selectedID = "";
 let userID = JSON.parse(session);
 let user = {};
+let todoTitle = "";
+let editValue = "";
+
 const fetchUser = async () => {
   try {
     const res = await fetch(`${ApiURL}/users/getUser.php?id=${userID}`);
@@ -36,17 +47,6 @@ const fetchTodos = async () => {
     console.log(error);
   }
 };
-
-const todosContainer = document.getElementById("todos-container");
-const editPopup = document.getElementById("edit-popup");
-const editInput = document.getElementById("edit-input");
-const editBtn = document.getElementById("edit-submit");
-const exitBtn = document.getElementById("exit-btn");
-const todoInput = document.getElementById("todo-input");
-const addButton = document.getElementById("add-button");
-const scoreSpan = document.getElementById("user-score");
-
-let todosClass = document.querySelectorAll(".todos");
 
 function reloadTodos() {
   todosContainer.innerHTML = "";
@@ -73,12 +73,8 @@ function reloadTodos() {
                                         </div>
 
                                     </div>`;
-    //select the added todos as well
-    todosClass = document.querySelectorAll(".todos");
   }
 }
-
-let todoTitle = "";
 
 async function addTodo() {
   const todo = new FormData();
@@ -131,7 +127,6 @@ async function incompleteTodo(id) {
   }
 }
 
-let editValue = "";
 async function handleEdit(id) {
   const newTodo = new FormData();
   newTodo.append("title", editValue);
