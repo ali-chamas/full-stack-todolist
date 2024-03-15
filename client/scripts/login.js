@@ -1,3 +1,10 @@
+//auth
+const session = window.localStorage.getItem("session") ?? null;
+
+if (session != "null" && session != null) {
+  window.location.assign(`./pages/todo.html`);
+}
+
 const loginError = document.getElementById("login-error");
 const signupError = document.getElementById("signup-error");
 
@@ -68,7 +75,8 @@ const handleLogin = async () => {
     });
     const data = await res.json();
     if (data.status == "logged in") {
-      window.location.assign(`/client/pages/todo.html?id=${data.user_id}`);
+      window.localStorage.setItem("session", JSON.stringify(data.user_id));
+      window.location.assign(`/client/pages/todo.html`);
     } else {
       displayError("login");
     }
@@ -90,7 +98,8 @@ const handleSignup = async () => {
     const data = await res.json();
 
     if (data.status == "success") {
-      window.location.assign(`/client/pages/todo.html?id=${data.user_id}`);
+      window.localStorage.setItem("session", JSON.stringify(data.user_id));
+      window.location.assign(`/client/pages/todo.html`);
     } else {
       displayError("singup");
     }

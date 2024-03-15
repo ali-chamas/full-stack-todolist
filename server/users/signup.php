@@ -14,18 +14,18 @@ $email_exists = $check_email->num_rows();
 
 if ($email_exists == 0) {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    $query = $mysqli->prepare('insert into users(name,password,email) values(?,?,?);');
+    $query = $mysqli->prepare('insert into users(id,name,password,email,score) values(null,?,?,?,0);');
     $query->bind_param('sss', $name, $hashed_password, $email);
     $query->execute();
     $query->store_result();
-    $query->bind_result($id, $email, $hashed_password, $name,$score);
+    $query->bind_result($email, $hashed_password, $name);
     $query->fetch();
     $response['status'] = "success";
     $response['message'] = "user $name was created successfully";
-    $response['user_id'] = $id;
+    // $response['user_id'] = $id;
     $response['name'] = $name;
     $response['email'] = $email;
-    $response['score']=$score;
+    // $response['score']=$score;
 } else {
     $response["status"] = "user already exists";
     $response["message"] = "user $name wasn't created";

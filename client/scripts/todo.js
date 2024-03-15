@@ -1,17 +1,19 @@
 const logoutButton = document.getElementById("logout-btn");
+const session = window.localStorage.getItem("session") ?? null;
 
+if (!session || session == "null") {
+  window.location.assign("../index.html");
+}
 logoutButton.addEventListener("click", function () {
-  window.location.reload();
+  window.localStorage.setItem("session", null);
+  window.location.assign("../index.html");
 });
-
-const queryString = window.location.search;
-const urlParams = new URLSearchParams(queryString);
-const userID = urlParams.get("id");
 
 const ApiURL = "http://localhost/todolist-full-stack/server";
 
 let todoList = [];
 let selectedID = "";
+let userID = JSON.parse(session);
 let user = {};
 const fetchUser = async () => {
   try {
@@ -19,7 +21,6 @@ const fetchUser = async () => {
     const data = await res.json();
     user = data;
     scoreSpan.innerHTML = user.score;
-    console.log(data);
   } catch (error) {
     console.log(error);
   }
