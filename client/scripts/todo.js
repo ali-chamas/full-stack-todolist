@@ -11,12 +11,25 @@ const userID = urlParams.get("id");
 const ApiURL = "http://localhost/todolist-full-stack/server";
 
 let todoList = [];
-
+let selectedID = "";
+let user = {};
+const fetchUser = async () => {
+  try {
+    const res = await fetch(`${ApiURL}/users/getUser.php?id=${userID}`);
+    const data = await res.json();
+    user = data;
+    scoreSpan.innerHTML = user.score;
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
 const fetchTodos = async () => {
   try {
     const res = await fetch(`${ApiURL}/todos/getTodos.php?id=${userID}`);
     const data = await res.json();
     todoList = data.todos;
+    await fetchUser();
     reloadTodos();
   } catch (error) {
     console.log(error);
@@ -28,6 +41,9 @@ const editPopup = document.getElementById("edit-popup");
 const editInput = document.getElementById("edit-input");
 const editBtn = document.getElementById("edit-submit");
 const exitBtn = document.getElementById("exit-btn");
+const todoInput = document.getElementById("todo-input");
+const addButton = document.getElementById("add-button");
+const scoreSpan = document.getElementById("user-score");
 
 let todosClass = document.querySelectorAll(".todos");
 
@@ -37,9 +53,9 @@ function reloadTodos() {
     const todo = todoList[i];
 
     todosContainer.innerHTML += `
-                                    <div class="flex w-full justify-between todos ${
-                                      todo.isFinished && "completed"
-                                    }">
+    <div class="flex w-full justify-between todos ${
+      todo.isFinished && "completed"
+    }">
                                         <p>${todo.title}</p>
                                         <div class="flex gap">
                                          <i class="fa-solid fa-edit primary-color  " onClick='openEditPopup(${
@@ -61,14 +77,7 @@ function reloadTodos() {
   }
 }
 
-const todoInput = document.getElementById("todo-input");
-const addButton = document.getElementById("add-button");
-
 let todoTitle = "";
-
-todoInput.addEventListener("change", function (e) {
-  todoTitle = e.target.value;
-});
 
 async function addTodo() {
   const todo = new FormData();
@@ -79,7 +88,7 @@ async function addTodo() {
       body: todo,
     });
     const data = await res.json();
-    console.log(data);
+
     await fetchTodos();
 
     todoInput.value = "";
@@ -121,11 +130,33 @@ async function incompleteTodo(id) {
   }
 }
 
-async function handleEdit() {}
+let editValue = "";
+async function handleEdit(id) {
+  const newTodo = new FormData();
+  newTodo.append("title", editValue);
+
+  try {
+    const res = await fetch(`${ApiURL}/todos/editTodo.php?id=${id}`, {
+      method: "POST",
+      body: newTodo,
+    });
+    console.log(await res.json());
+    editValue = "";
+    selectedID = "";
+    editInput.value = "";
+    await fetchTodos();
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 function openEditPopup(id) {
+  console.log(id);
+  selectedID = id;
   editPopup.classList.add("flex");
-  editBtn.addEventListener("click", () => handleEdit(id));
+  editInput.addEventListener("change", (e) => {
+    editValue = e.target.value;
+  });
 }
 
 function closeEditPopup() {
@@ -135,7 +166,13 @@ function closeEditPopup() {
 const app = async () => {
   await fetchTodos();
 
+  todoInput.addEventListener("change", function (e) {
+    todoTitle = e.target.value;
+  });
   addButton.addEventListener("click", addTodo);
+
+  editBtn.addEventListener("click", () => handleEdit(selectedID));
+
   exitBtn.addEventListener("click", closeEditPopup);
 };
 
