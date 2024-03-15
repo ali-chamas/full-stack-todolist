@@ -98,6 +98,7 @@ const handleSignup = async () => {
     const data = await res.json();
 
     if (data.status == "success") {
+      console.log(data);
       window.localStorage.setItem("session", JSON.stringify(data.user_id));
       window.location.assign(`/client/pages/todo.html`);
     } else {

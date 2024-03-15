@@ -51,6 +51,9 @@ input {
   outline: none;
 }
 
+.switcher {
+  cursor: pointer;
+}
 .error_msg {
   display: none;
 }
