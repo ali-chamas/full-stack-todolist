@@ -96,9 +96,7 @@ async function addTodo() {
 }
 
 async function deleteTodo(id) {
-  const res = await fetch(
-    `http://localhost/todolist-full-stack/server/todos/deleteTodo.php?id=${id}`
-  );
+  const res = await fetch(`${ApiURL}/todos/deleteTodo.php?id=${id}`);
   await fetchTodos();
 }
 
